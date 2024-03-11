@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "planit.Domain", "planit.Domain\planit.Domain.csproj", "{DC31263A-2B5B-4B6A-87D6-6CF278D12DE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "planit.Application", "planit.Application\planit.Application.csproj", "{01849D38-F5E8-40A2-88A4-D52B6E4796B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "planit.Persistance", "planit.Persistance\planit.Persistance.csproj", "{0044B73B-5944-4EE2-9B99-263646D0E2D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "planit.Web", "planit.Web\planit.Web.csproj", "{18DBE12B-2CB3-4426-AF87-4681B8B2B449}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC31263A-2B5B-4B6A-87D6-6CF278D12DE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC31263A-2B5B-4B6A-87D6-6CF278D12DE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC31263A-2B5B-4B6A-87D6-6CF278D12DE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC31263A-2B5B-4B6A-87D6-6CF278D12DE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01849D38-F5E8-40A2-88A4-D52B6E4796B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01849D38-F5E8-40A2-88A4-D52B6E4796B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01849D38-F5E8-40A2-88A4-D52B6E4796B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01849D38-F5E8-40A2-88A4-D52B6E4796B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0044B73B-5944-4EE2-9B99-263646D0E2D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0044B73B-5944-4EE2-9B99-263646D0E2D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0044B73B-5944-4EE2-9B99-263646D0E2D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0044B73B-5944-4EE2-9B99-263646D0E2D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18DBE12B-2CB3-4426-AF87-4681B8B2B449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18DBE12B-2CB3-4426-AF87-4681B8B2B449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18DBE12B-2CB3-4426-AF87-4681B8B2B449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18DBE12B-2CB3-4426-AF87-4681B8B2B449}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
