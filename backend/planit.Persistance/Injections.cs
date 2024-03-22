@@ -17,6 +17,7 @@ public static class Injections
         });
 
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        services.AddScoped(typeof(IRepositoryGetter), typeof(RepositoryGetter));
 
     }
 

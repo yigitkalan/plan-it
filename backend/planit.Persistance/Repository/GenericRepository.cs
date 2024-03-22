@@ -29,6 +29,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         if (orderBy != null)
             return await orderBy(queryable).ToListAsync();
 
+        await dbContext.SaveChangesAsync();    
         return await queryable.ToListAsync();
     }
 
@@ -37,6 +38,8 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         IQueryable<T> queryable = Entities.AsNoTracking();
         if (predicate != null)
             return await queryable.CountAsync(predicate);
+
+        await dbContext.SaveChangesAsync();    
         return await queryable.CountAsync();
     }
 
@@ -51,6 +54,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         if (orderBy != null)
             return await orderBy(queryable).Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
 
+        await dbContext.SaveChangesAsync();    
         return await queryable.Skip((currentPage - 1) * pageSize).Take(pageSize).ToListAsync();
     }
 
@@ -62,35 +66,41 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         if (include != null) queryable = include(queryable);
         queryable = queryable.Where(predicate);
 
+        await dbContext.SaveChangesAsync();    
         return await queryable.FirstOrDefaultAsync();
     }
 
-    public IQueryable<T> Find(Expression<Func<T, bool>> predicate, bool enableTracking = false)
+    public async Task<IQueryable<T>> Find(Expression<Func<T, bool>> predicate, bool enableTracking = false)
     {
         IQueryable<T> queryable = Entities;
         if (!enableTracking)
             queryable = Entities.AsNoTracking();
+        await dbContext.SaveChangesAsync();    
         return queryable.Where(predicate);
     }
 
     public async Task AddAsync(T entity)
     {
         await Entities.AddAsync(entity);
+        await dbContext.SaveChangesAsync();    
     }
 
     public async Task AddRangeAsync(IList<T> entities)
     {
         await Entities.AddRangeAsync(entities);
+        await dbContext.SaveChangesAsync();    
     }
     public async Task<T> UpdateAsync(T entity)
     {
         //update processes cannot be run asynchronously so we can combine it with Run
         await Task.Run(() => Entities.Update(entity));
+        await dbContext.SaveChangesAsync();    
         return entity;
     }
 
     public async Task HardDeleteAsync(T entity)
     {
         await Task.Run(() => Entities.Remove(entity));
+        await dbContext.SaveChangesAsync();    
     }
 }
