@@ -8,6 +8,8 @@ public class BoardProfile: Profile
     public BoardProfile()
     {
         CreateMap<Board, GetAllBoardsResponse>();
+        CreateMap<CreateBoardRequest, Board>();
+        CreateMap<UpdateBoardRequest, Board>();
         
     }
 

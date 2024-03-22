@@ -28,6 +28,20 @@ namespace planit.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Columns",
                 columns: table => new
                 {
@@ -45,6 +59,30 @@ namespace planit.Persistance.Migrations
                         name: "FK_Columns_Boards_BoardId",
                         column: x => x.BoardId,
                         principalTable: "Boards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "BoardUser",
+                columns: table => new
+                {
+                    ParticipatedBoardsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    UsersId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BoardUser", x => new { x.ParticipatedBoardsId, x.UsersId });
+                    table.ForeignKey(
+                        name: "FK_BoardUser_Boards_ParticipatedBoardsId",
+                        column: x => x.ParticipatedBoardsId,
+                        principalTable: "Boards",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_BoardUser_Users_UsersId",
+                        column: x => x.UsersId,
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -73,53 +111,28 @@ namespace planit.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "ItemUser",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ItemId = table.Column<int>(type: "INTEGER", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "INTEGER", nullable: false)
+                    AssignedUsersId = table.Column<int>(type: "INTEGER", nullable: false),
+                    TasksId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_ItemUser", x => new { x.AssignedUsersId, x.TasksId });
                     table.ForeignKey(
-                        name: "FK_Users_Tasks_ItemId",
-                        column: x => x.ItemId,
+                        name: "FK_ItemUser_Tasks_TasksId",
+                        column: x => x.TasksId,
                         principalTable: "Tasks",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BoardUser",
-                columns: table => new
-                {
-                    ParticipatedBoardsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UsersId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BoardUser", x => new { x.ParticipatedBoardsId, x.UsersId });
-                    table.ForeignKey(
-                        name: "FK_BoardUser_Boards_ParticipatedBoardsId",
-                        column: x => x.ParticipatedBoardsId,
-                        principalTable: "Boards",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BoardUser_Users_UsersId",
-                        column: x => x.UsersId,
+                        name: "FK_ItemUser_Users_AssignedUsersId",
+                        column: x => x.AssignedUsersId,
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Boards_OwnerId",
-                table: "Boards",
-                column: "OwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BoardUser_UsersId",
@@ -132,39 +145,30 @@ namespace planit.Persistance.Migrations
                 column: "BoardId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ItemUser_TasksId",
+                table: "ItemUser",
+                column: "TasksId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Tasks_ColumnId",
                 table: "Tasks",
                 column: "ColumnId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_ItemId",
-                table: "Users",
-                column: "ItemId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Boards_Users_OwnerId",
-                table: "Boards",
-                column: "OwnerId",
-                principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Boards_Users_OwnerId",
-                table: "Boards");
-
             migrationBuilder.DropTable(
                 name: "BoardUser");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "ItemUser");
 
             migrationBuilder.DropTable(
                 name: "Tasks");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Columns");

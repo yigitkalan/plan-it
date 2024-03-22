@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../planit.Application/planit.Application.csproj" />
     <ProjectReference Include="..\planit.Domain\planit.Domain.csproj" />
-    <ProjectReference Include="..\planit.Application\planit.Application.csproj" />
   </ItemGroup>
 
 </Project>

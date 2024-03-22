@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using planit.Application.Interfaces;
 using planit.Persistance.Contexts;
+using planit.Persistance.Getter;
 using planit.Persistance.Repository;
 
 namespace planit.Persistance;

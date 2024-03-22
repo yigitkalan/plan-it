@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features/Boards/Commands/" />
+    <Folder Include="Features/Boards/Commands/DeleteBoard/" />
   </ItemGroup>
 
 </Project>

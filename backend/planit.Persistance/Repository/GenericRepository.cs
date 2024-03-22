@@ -6,7 +6,7 @@ using planit.Domain.Base;
 using planit.Persistance.Contexts;
 
 namespace planit.Persistance.Repository;
-public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity, new()
+public class GenericRepository<T> : IGenericRepository<T> where T : Entity, new()
 {
     private readonly AppDbContext dbContext;
 
@@ -26,6 +26,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
         if (!enableTracking) queryable = queryable.AsNoTracking();
         if (include != null) queryable = include(queryable);
         if (predicate != null) queryable = queryable.Where(predicate);
+        queryable = queryable.Where(t => !t.IsDeleted);
         if (orderBy != null)
             return await orderBy(queryable).ToListAsync();
 
@@ -102,5 +103,21 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class, IEnti
     {
         await Task.Run(() => Entities.Remove(entity));
         await dbContext.SaveChangesAsync();    
+    }
+
+    public async Task<List<T>> GetAllWithDeletedAsync(Expression<Func<T, bool>>? predicate = null,
+     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+      Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, bool enableTracking = false)
+    {
+        IQueryable<T> queryable = Entities;
+        //since we're just reading the data, we don't need to track the changes
+        if (!enableTracking) queryable = queryable.AsNoTracking();
+        if (include != null) queryable = include(queryable);
+        if (predicate != null) queryable = queryable.Where(predicate);
+        if (orderBy != null)
+            return await orderBy(queryable).ToListAsync();
+
+        await dbContext.SaveChangesAsync();    
+        return await queryable.ToListAsync();
     }
 }

@@ -32,6 +32,21 @@ namespace planit.Persistance.Migrations
                     b.ToTable("BoardUser");
                 });
 
+            modelBuilder.Entity("ItemUser", b =>
+                {
+                    b.Property<int>("AssignedUsersId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("TasksId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AssignedUsersId", "TasksId");
+
+                    b.HasIndex("TasksId");
+
+                    b.ToTable("ItemUser");
+                });
+
             modelBuilder.Entity("planit.Domain.Entities.Board", b =>
                 {
                     b.Property<int>("Id")
@@ -52,8 +67,6 @@ namespace planit.Persistance.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
 
                     b.ToTable("Boards");
                 });
@@ -126,12 +139,7 @@ namespace planit.Persistance.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ItemId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
 
                     b.ToTable("Users");
                 });
@@ -151,15 +159,19 @@ namespace planit.Persistance.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("planit.Domain.Entities.Board", b =>
+            modelBuilder.Entity("ItemUser", b =>
                 {
-                    b.HasOne("planit.Domain.Entities.User", "Owner")
-                        .WithMany("OwnedBoards")
-                        .HasForeignKey("OwnerId")
+                    b.HasOne("planit.Domain.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("AssignedUsersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Owner");
+                    b.HasOne("planit.Domain.Entities.Item", null)
+                        .WithMany()
+                        .HasForeignKey("TasksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("planit.Domain.Entities.Column", b =>
@@ -184,13 +196,6 @@ namespace planit.Persistance.Migrations
                     b.Navigation("Column");
                 });
 
-            modelBuilder.Entity("planit.Domain.Entities.User", b =>
-                {
-                    b.HasOne("planit.Domain.Entities.Item", null)
-                        .WithMany("AssignedUsers")
-                        .HasForeignKey("ItemId");
-                });
-
             modelBuilder.Entity("planit.Domain.Entities.Board", b =>
                 {
                     b.Navigation("Columns");
@@ -199,16 +204,6 @@ namespace planit.Persistance.Migrations
             modelBuilder.Entity("planit.Domain.Entities.Column", b =>
                 {
                     b.Navigation("Tasks");
-                });
-
-            modelBuilder.Entity("planit.Domain.Entities.Item", b =>
-                {
-                    b.Navigation("AssignedUsers");
-                });
-
-            modelBuilder.Entity("planit.Domain.Entities.User", b =>
-                {
-                    b.Navigation("OwnedBoards");
                 });
 #pragma warning restore 612, 618
         }

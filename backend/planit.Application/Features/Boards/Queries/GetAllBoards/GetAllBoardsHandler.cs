@@ -1,23 +1,24 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using planit.Application.Interfaces;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;
 public class GetAllBoardsHandler : IRequestHandler<GetAllBoardsRequest, List<GetAllBoardsResponse>>
 {
-    private IGenericRepository<Board> repository;
+    private IRepositoryGetter getter;
     private IMapper autoMapper;
 
-    public GetAllBoardsHandler(IGenericRepository<Board> repository, IMapper mapper)
+    public GetAllBoardsHandler(IRepositoryGetter repository, IMapper mapper)
     {
-        this.repository = repository;
+        this.getter = repository;
         this.autoMapper = mapper;
 
     }
     public async Task<List<GetAllBoardsResponse>> Handle(GetAllBoardsRequest request, CancellationToken cancellationToken)
     {
-        var boards = await repository.GetAllAsync();
+        var boards = await getter.GenericRepository<Board>().GetAllAsync(include: q => q.Include(b => b.Users));
         return autoMapper.Map<List<Board>, List<GetAllBoardsResponse>>(boards);;
     }
 }

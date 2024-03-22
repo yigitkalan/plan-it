@@ -5,6 +5,11 @@ using planit.Domain.Base;
 namespace planit.Application.Interfaces;
 public interface IGenericRepository<T> where T : class, IEntity, new()
 {
+
+    Task<List<T>> GetAllWithDeletedAsync(Expression<Func<T, bool>>? predicate = null,
+     Func<IQueryable<T>, IIncludableQueryable<T,object>>? include = null,
+     Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+     bool enableTracking = false);
     Task<List<T>> GetAllAsync(Expression<Func<T, bool>>? predicate = null,
      Func<IQueryable<T>, IIncludableQueryable<T,object>>? include = null,
      Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,

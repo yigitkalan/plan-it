@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../planit.Application/planit.Application.csproj" />
     <ProjectReference Include="..\planit.Persistance\planit.Persistance.csproj" />
-    <ProjectReference Include="..\planit.Application\planit.Application.csproj" />
   </ItemGroup>
 
 </Project>
