@@ -16,8 +16,7 @@ public static class Injections
             options.UseSqlite(configuration.GetConnectionString("LiteConnection"));
         });
 
-        services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
-        services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
     }
 
