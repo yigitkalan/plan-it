@@ -10,4 +10,15 @@ public class Item: Entity
     
     public ICollection<User> AssignedUsers { get; set; } = new List<User>();
 
+    public Item()
+    {
+    }
+
+    public Item(string title, string description, int columnId)
+    {
+        Title = title;
+        Description = description;
+        ColumnId = columnId;
+    }
+
 }

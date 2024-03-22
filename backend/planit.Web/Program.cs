@@ -1,4 +1,5 @@
 using planit.Persistance;
+using planit.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Configuration
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 builder.Services.RegisterPersistance(builder.Configuration);
+builder.Services.RegisterApplication();
 
 var app = builder.Build();
 

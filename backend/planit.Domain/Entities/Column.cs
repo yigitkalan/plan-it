@@ -8,4 +8,13 @@ public class Column: Entity
     public Board Board { get; set; }
     public ICollection<Item> Tasks { get; set; }
 
+    public Column()
+    {
+    }
+
+    public Column(string name, int boardId)
+    {
+        Name = name;
+        BoardId = boardId;
+    }
 }
