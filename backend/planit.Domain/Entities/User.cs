@@ -4,6 +4,7 @@ namespace planit.Domain.Entities;
 public class User: Entity
 {
 
-    public ICollection<Board> Boards { get; set; }
+    public ICollection<Board> ParticipatedBoards { get; set; }
+    public ICollection<Board> OwnedBoards { get; set; }
 
 }

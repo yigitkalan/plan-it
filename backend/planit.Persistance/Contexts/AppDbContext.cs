@@ -14,8 +14,8 @@ public class AppDbContext: DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().HasMany(u => u.Boards).WithOne(b => b.Owner).HasForeignKey(b => b.OwnerId);
-        modelBuilder.Entity<Board>().HasMany(b => b.Users).WithMany(u => u.Boards);
+        modelBuilder.Entity<User>().HasMany(u => u.OwnedBoards).WithOne(b => b.Owner).HasForeignKey(b => b.OwnerId);
+        modelBuilder.Entity<Board>().HasMany(b => b.Users).WithMany(u => u.ParticipatedBoards);
         modelBuilder.Entity<Board>().HasMany(b => b.Columns).WithOne(c => c.Board).HasForeignKey(c => c.BoardId);
         modelBuilder.Entity<Column>().HasMany(c => c.Tasks).WithOne(t => t.Column).HasForeignKey(t => t.ColumnId);
     }

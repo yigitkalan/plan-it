@@ -1,3 +1,5 @@
+using planit.Persistance;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -12,6 +14,7 @@ builder.Configuration
     .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Services.RegisterPersistance(builder.Configuration);
 
 var app = builder.Build();
 
