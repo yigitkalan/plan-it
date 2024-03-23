@@ -1,5 +1,6 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -22,8 +23,10 @@ public class JWTService : IJWTService
     }
     public string GenerateRefreshToken()
     {
-
-        throw new NotImplementedException();
+        var randomNumber = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 
     public async Task<JwtSecurityToken> GenerateToken(User user, List<string> roles)
@@ -41,7 +44,7 @@ public class JWTService : IJWTService
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.Secret));
 
-        var token = new  JwtSecurityToken(
+        var token = new JwtSecurityToken(
             issuer: jwtConfiguration.Issuer,
             audience: jwtConfiguration.Audience,
             claims: claims,
@@ -56,6 +59,23 @@ public class JWTService : IJWTService
 
     public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
     {
-        throw new NotImplementedException();
+        TokenValidationParameters tokenValidationParameters = new()
+        {
+            ValidateAudience = false,
+            ValidateIssuer = false,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfiguration.Secret)),
+            ValidateLifetime = false
+        };
+
+        JwtSecurityTokenHandler tokenHandler = new();
+        var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out var securityToken);
+        if (securityToken is not JwtSecurityToken jwtSecurityToken || !jwtSecurityToken.Header.Alg
+        .Equals(SecurityAlgorithms.HmacSha256, StringComparison.InvariantCultureIgnoreCase))
+        {
+            throw new SecurityTokenException("Invalid token");
+        }
+
+        return principal;
     }
 }

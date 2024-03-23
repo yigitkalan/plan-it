@@ -1,6 +1,9 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using planit.Application.Interfaces;
 using planit.Domain.Entities;
 using planit.Persistance.Contexts;
@@ -23,7 +26,29 @@ public static class Injections
         services.AddScoped(typeof(IRepositoryGetter), typeof(RepositoryGetter));
 
         services.Configure<JWTConfiguration>(configuration.GetSection("JWT"));
+        services.AddTransient<IJWTService, JWTService>();
 
+
+        services.AddAuthentication(options => 
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+        {
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"])),
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = configuration["JWT:Issuer"],
+                ValidAudience = configuration["JWT:Audience"],
+                ClockSkew = TimeSpan.Zero
+
+            };
+        });
 
         services.AddIdentityCore<User>(options =>
         {
