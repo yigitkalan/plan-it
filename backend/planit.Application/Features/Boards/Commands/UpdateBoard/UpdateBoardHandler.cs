@@ -1,18 +1,16 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
+using planit.Application.Bases;
 using planit.Application.Interfaces;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;
-public class UpdateBoardHandler : IRequestHandler<UpdateBoardRequest, Unit>
+public class UpdateBoardHandler :BaseHandler, IRequestHandler<UpdateBoardRequest, Unit>
 {
-    private IRepositoryGetter getter;
-    private IMapper autoMapper;
-
-    public UpdateBoardHandler(IRepositoryGetter getter, IMapper mapper)
+    public UpdateBoardHandler(IRepositoryGetter repositoryGetter, IMapper mapper, IHttpContextAccessor
+     httpContextAccessor) : base(mapper, repositoryGetter, httpContextAccessor)
     {
-        this.getter = getter;
-        this.autoMapper = mapper;
 
     }
     public async Task<Unit> Handle(UpdateBoardRequest request, CancellationToken cancellationToken)

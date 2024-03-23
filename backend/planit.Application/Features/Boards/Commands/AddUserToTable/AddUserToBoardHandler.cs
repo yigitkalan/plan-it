@@ -1,17 +1,17 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
+using planit.Application.Bases;
 using planit.Application.Interfaces;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;
-public class AddUserToBoardHandler : IRequestHandler<AddUserToBoardRequest, Unit>
+public class AddUserToBoardHandler :BaseHandler, IRequestHandler<AddUserToBoardRequest, Unit>
 {
-    private IRepositoryGetter getter;
-    private IMapper autoMapper;
-    public AddUserToBoardHandler(IRepositoryGetter repository, IMapper mapper)
+    public AddUserToBoardHandler(IRepositoryGetter repositoryGetter, IMapper mapper, IHttpContextAccessor
+     httpContextAccessor) : base(mapper, repositoryGetter, httpContextAccessor)
     {
-        this.getter = repository;
-        this.autoMapper = mapper;
+
     }
     public async Task<Unit> Handle(AddUserToBoardRequest request, CancellationToken cancellationToken)
     {

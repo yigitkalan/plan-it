@@ -1,20 +1,18 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using planit.Application.Bases;
 using planit.Application.Interfaces;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;
-public class CreateBoardHandler : IRequestHandler<CreateBoardRequest, Unit>
+public class CreateBoardHandler : BaseHandler, IRequestHandler<CreateBoardRequest, Unit>
 {
 
-    private IRepositoryGetter getter;
-    private IMapper autoMapper;
 
-    public CreateBoardHandler(IRepositoryGetter getter, IMapper mapper)
+    public CreateBoardHandler(IMapper autoMapper, IRepositoryGetter getter, IHttpContextAccessor httpContextAccessor) : base(autoMapper, getter, httpContextAccessor)
     {
-        this.getter = getter;
-        this.autoMapper = mapper;
 
     }
     public async Task<Unit> Handle(CreateBoardRequest request, CancellationToken cancellationToken)

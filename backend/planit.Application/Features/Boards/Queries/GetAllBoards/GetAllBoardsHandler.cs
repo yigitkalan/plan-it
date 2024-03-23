@@ -1,19 +1,17 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using planit.Application.Bases;
 using planit.Application.Interfaces;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;
-public class GetAllBoardsHandler : IRequestHandler<GetAllBoardsRequest, List<GetAllBoardsResponse>>
+public class GetAllBoardsHandler :BaseHandler, IRequestHandler<GetAllBoardsRequest, List<GetAllBoardsResponse>>
 {
-    private IRepositoryGetter getter;
-    private IMapper autoMapper;
-
-    public GetAllBoardsHandler(IRepositoryGetter repository, IMapper mapper)
+    public GetAllBoardsHandler(IRepositoryGetter repositoryGetter, IMapper mapper, IHttpContextAccessor
+     httpContextAccessor) : base(mapper, repositoryGetter, httpContextAccessor)
     {
-        this.getter = repository;
-        this.autoMapper = mapper;
 
     }
     public async Task<List<GetAllBoardsResponse>> Handle(GetAllBoardsRequest request, CancellationToken cancellationToken)
