@@ -13,4 +13,11 @@ public class AuthController: BaseController
         return StatusCode(StatusCodes.Status201Created);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> Login([FromBody] SigninRequest request)
+    {
+        var response = await Mediator.Send(request);
+        return Ok(response);
+    }
+
 }

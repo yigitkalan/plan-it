@@ -8,7 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "Plan-it API", Version = "v1", Description = "API for Plan-it application" });
-    c.AddSecurityDefinition("bearer", new OpenApiSecurityScheme()
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
         Type = SecuritySchemeType.ApiKey,
@@ -34,6 +34,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddControllers();
+
+
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

@@ -11,7 +11,7 @@ using planit.Persistance.Contexts;
 namespace planit.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240323155040_InitialCreate")]
+    [Migration("20240323200613_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -165,8 +165,8 @@ namespace planit.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

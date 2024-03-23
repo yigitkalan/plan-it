@@ -162,8 +162,8 @@ namespace planit.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("OwnerId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

@@ -9,5 +9,4 @@ public interface IJWTService
     string GenerateRefreshToken();
 
     ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
-
 }

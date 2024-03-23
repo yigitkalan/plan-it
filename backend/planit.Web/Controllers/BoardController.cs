@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using planit.Application.Features;
 
@@ -6,6 +7,7 @@ public class BoardController: BaseController
 {
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var response = await Mediator.Send(new GetAllBoardsRequest());
@@ -13,6 +15,7 @@ public class BoardController: BaseController
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateBoardRequest request)
     {
         var response = await Mediator.Send(request);

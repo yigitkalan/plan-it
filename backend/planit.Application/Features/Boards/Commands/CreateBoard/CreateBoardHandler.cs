@@ -17,7 +17,7 @@ public class CreateBoardHandler : BaseHandler, IRequestHandler<CreateBoardReques
     }
     public async Task<Unit> Handle(CreateBoardRequest request, CancellationToken cancellationToken)
     {
-        var board = autoMapper.Map<CreateBoardRequest, Board>(request);
+        Board board = autoMapper.Map<CreateBoardRequest, Board>(request);
         var user = await getter.GenericRepository<User>()
         .GetAsync(predicate: u => u.Id == request.OwnerId,
         include: q => q.Include(u => u.ParticipatedBoards), enableTracking: true)

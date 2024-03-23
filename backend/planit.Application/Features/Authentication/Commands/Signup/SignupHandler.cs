@@ -10,10 +10,10 @@ namespace planit.Application.Features;
 public class SignupHandler : BaseHandler, IRequestHandler<SignupRequest, Unit>
 {
     private readonly UserManager<User> userManager;
-    private readonly AuthRules authRules;
+    private readonly AuthenticationRules authRules;
     private readonly RoleManager<Role> roleManager;
 
-    public SignupHandler(AuthRules authRules,RoleManager<Role> roleManager, UserManager<User> userManager, IMapper mapper, IRepositoryGetter repositoryGetter, IHttpContextAccessor
+    public SignupHandler(AuthenticationRules authRules,RoleManager<Role> roleManager, UserManager<User> userManager, IMapper mapper, IRepositoryGetter repositoryGetter, IHttpContextAccessor
      httpContextAccessor) : base(mapper, repositoryGetter, httpContextAccessor)
     {
         this.userManager = userManager;

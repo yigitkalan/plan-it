@@ -13,7 +13,7 @@ public class JWTService : IJWTService
 {
 
     private readonly UserManager<User> userManager;
-    public readonly JWTConfiguration jwtConfiguration;
+    private readonly JWTConfiguration jwtConfiguration;
 
 
     public JWTService(IOptions<JWTConfiguration> options, UserManager<User> userManager)
@@ -48,7 +48,7 @@ public class JWTService : IJWTService
             issuer: jwtConfiguration.Issuer,
             audience: jwtConfiguration.Audience,
             claims: claims,
-            expires: DateTime.Now.AddMinutes(jwtConfiguration.AccessTokenExpiration),
+            expires: DateTime.Now.AddMinutes(jwtConfiguration.TokenExpirationInMinutes),
             signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
         );
 
@@ -78,4 +78,6 @@ public class JWTService : IJWTService
 
         return principal;
     }
+
+
 }
