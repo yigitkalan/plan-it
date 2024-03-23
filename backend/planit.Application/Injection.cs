@@ -1,5 +1,8 @@
 using System.Reflection;
+using FluentValidation;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using planit.Application.Behaivors;
 using planit.Application.MapProfiles;
 
 namespace planit.Application;
@@ -12,6 +15,9 @@ public static class Injection
         {
             c.AddProfile<BoardProfile>();
         });
+
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
     }
 
 }
