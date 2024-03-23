@@ -13,7 +13,7 @@ public class JWTService : IJWTService
 {
 
     private readonly UserManager<User> userManager;
-    private readonly JWTConfiguration jwtConfiguration;
+    public readonly JWTConfiguration jwtConfiguration;
 
 
     public JWTService(IOptions<JWTConfiguration> options, UserManager<User> userManager)
@@ -29,7 +29,7 @@ public class JWTService : IJWTService
         return Convert.ToBase64String(randomNumber);
     }
 
-    public async Task<JwtSecurityToken> GenerateToken(User user, List<string> roles)
+    public async Task<JwtSecurityToken> GenerateToken(User user, IList<string> roles)
     {
         var claims = new List<Claim>
         {

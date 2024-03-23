@@ -7,24 +7,24 @@ using planit.Application.Interfaces;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;
-public class RegisterHandler : BaseHandler, IRequestHandler<RegisterRequest, Unit>
+public class SignupHandler : BaseHandler, IRequestHandler<SignupRequest, Unit>
 {
     private readonly UserManager<User> userManager;
     private readonly AuthRules authRules;
     private readonly RoleManager<Role> roleManager;
 
-    public RegisterHandler(AuthRules authRules,RoleManager<Role> roleManager, UserManager<User> userManager, IMapper mapper, IRepositoryGetter repositoryGetter, IHttpContextAccessor
+    public SignupHandler(AuthRules authRules,RoleManager<Role> roleManager, UserManager<User> userManager, IMapper mapper, IRepositoryGetter repositoryGetter, IHttpContextAccessor
      httpContextAccessor) : base(mapper, repositoryGetter, httpContextAccessor)
     {
         this.userManager = userManager;
         this.authRules = authRules;
         this.roleManager = roleManager;
     }
-    public async Task<Unit> Handle(RegisterRequest request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(SignupRequest request, CancellationToken cancellationToken)
     {
         await authRules.UserShouldNotExist(await userManager.FindByEmailAsync(request.Email));
 
-        User user = autoMapper.Map<RegisterRequest, User>(request);
+        User user = autoMapper.Map<SignupRequest, User>(request);
         user.SecurityStamp = Guid.NewGuid().ToString();
         IdentityResult identityResult = await userManager.CreateAsync(user, request.Password);
         if(identityResult.Succeeded){

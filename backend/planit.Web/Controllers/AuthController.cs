@@ -7,7 +7,7 @@ public class AuthController: BaseController
 {
 
     [HttpPost]
-    public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+    public async Task<IActionResult> Register([FromBody] SignupRequest request)
     {
         var response = await Mediator.Send(request);
         return StatusCode(StatusCodes.Status201Created);
