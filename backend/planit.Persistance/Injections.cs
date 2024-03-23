@@ -6,6 +6,7 @@ using planit.Domain.Entities;
 using planit.Persistance.Contexts;
 using planit.Persistance.Getter;
 using planit.Persistance.Repository;
+using planit.Persistance.Tokens;
 
 namespace planit.Persistance;
 public static class Injections
@@ -21,6 +22,7 @@ public static class Injections
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddScoped(typeof(IRepositoryGetter), typeof(RepositoryGetter));
 
+        services.Configure<JWTConfiguration>(configuration.GetSection("JWT"));
 
 
         services.AddIdentityCore<User>(options =>
