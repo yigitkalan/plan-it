@@ -20,4 +20,11 @@ public class AuthController: BaseController
         return Ok(response);
     }
 
+    [HttpPost]
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
+    {
+        var response = await Mediator.Send(request);
+        return Ok(response);
+    }
+
 }
