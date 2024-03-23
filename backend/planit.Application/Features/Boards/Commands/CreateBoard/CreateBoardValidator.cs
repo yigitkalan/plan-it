@@ -6,6 +6,6 @@ public class CreateBoardValidator: AbstractValidator<CreateBoardRequest>
     public CreateBoardValidator()
     {
         RuleFor(x => x.Name).NotEmpty().MaximumLength(20);
-        RuleFor(x => x.OwnerId).GreaterThan(0);
+        RuleFor(x => x.OwnerId).NotEmpty();
     }
 }

@@ -7,6 +7,7 @@ using planit.Application.Bases;
 using planit.Application.Behaivors;
 using planit.Application.Exceptions;
 using planit.Application.MapProfiles;
+using planit.Domain.Entities;
 
 namespace planit.Application;
 public static class Injection

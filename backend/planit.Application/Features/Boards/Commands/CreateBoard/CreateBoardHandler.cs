@@ -21,7 +21,7 @@ public class CreateBoardHandler : IRequestHandler<CreateBoardRequest, Unit>
     {
         var board = autoMapper.Map<CreateBoardRequest, Board>(request);
         var user = await getter.GenericRepository<User>()
-        .GetAsync(predicate: u => u.Id == request.OwnerId && !u.IsDeleted, 
+        .GetAsync(predicate: u => u.Id == request.OwnerId,
         include: q => q.Include(u => u.ParticipatedBoards), enableTracking: true)
          ?? throw new Exception("User not found");
         board.Users.Add(user);

@@ -19,7 +19,7 @@ public class RemoveUserFromBoardHandler : IRequestHandler<RemoveUserFromBoardReq
         var boardRepo = getter.GenericRepository<Board>();
         var userRepo = getter.GenericRepository<User>();
 
-        var user = await userRepo.GetAsync(predicate: u => u.Id == request.UserId && !u.IsDeleted, enableTracking: true)
+        var user = await userRepo.GetAsync(predicate: u => u.Id == request.UserId , enableTracking: true)
          ?? throw new Exception("User not found");
 
         var board = await boardRepo.GetAsync(predicate: b => b.Id == request.BoardId && !b.IsDeleted, enableTracking: true)

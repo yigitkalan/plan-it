@@ -6,7 +6,7 @@ using planit.Domain.Base;
 using planit.Persistance.Contexts;
 
 namespace planit.Persistance.Repository;
-public class GenericRepository<T> : IGenericRepository<T> where T : Entity, new()
+public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity, new()
 {
     private readonly AppDbContext dbContext;
 
@@ -26,7 +26,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : Entity, new(
         if (!enableTracking) queryable = queryable.AsNoTracking();
         if (include != null) queryable = include(queryable);
         if (predicate != null) queryable = queryable.Where(predicate);
-        queryable = queryable.Where(t => !t.IsDeleted);
         if (orderBy != null)
             return await orderBy(queryable).ToListAsync();
 
