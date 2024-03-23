@@ -3,7 +3,7 @@ using planit.Application.Features;
 using planit.Web.Controllers;
 
 namespace planit.Web.Controllers;
-public class AuthController: BaseController
+public class AuthenticationController: BaseController
 {
 
     [HttpPost]
@@ -25,6 +25,18 @@ public class AuthController: BaseController
     {
         var response = await Mediator.Send(request);
         return Ok(response);
+    }
+    [HttpPost]
+    public async Task<IActionResult> Revoke([FromBody] LogoutRequest request)
+    {
+        await Mediator.Send(request);
+        return Ok();
+    }
+    [HttpPost]
+    public async Task<IActionResult> RevokeAll()
+    {
+        await Mediator.Send(new LogoutAllRequest());
+        return Ok();
     }
 
 }
