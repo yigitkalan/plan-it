@@ -18,13 +18,13 @@ public static class Injection
         services.AddAutoMapper(c =>
         {
             c.AddProfile<BoardProfile>();
+            c.AddProfile<UserProfile>();
         });
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddTransient<ExceptionMiddleware>();
         AddRulesFromAssemblyContaining(services, Assembly.GetExecutingAssembly(), typeof(BaseRule));
-
     }
     public static void ConfigureExceptionHandlingMiddleware(this IApplicationBuilder app)
     {
