@@ -1,8 +1,10 @@
 using System.Reflection;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using planit.Application.Behaivors;
+using planit.Application.Exceptions;
 using planit.Application.MapProfiles;
 
 namespace planit.Application;
@@ -18,6 +20,12 @@ public static class Injection
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddTransient<ExceptionMiddleware>();
+
+    }
+    public static void ConfigureExceptionHandlingMiddleware(this IApplicationBuilder app)
+    {
+        app.UseMiddleware<ExceptionMiddleware>();
     }
 
 }
