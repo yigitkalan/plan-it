@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore.Query;
 using planit.Domain.Base;
 
-namespace planit.Application.Interfaces;
+namespace planit.Application.Abstractions;
 public interface IGenericRepository<T> where T : class, IEntity, new()
 {
 

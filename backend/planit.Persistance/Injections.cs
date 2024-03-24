@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using planit.Application.Interfaces;
+using planit.Application.Abstractions;
 using planit.Domain.Entities;
 using planit.Persistance.Contexts;
 using planit.Persistance.Getter;

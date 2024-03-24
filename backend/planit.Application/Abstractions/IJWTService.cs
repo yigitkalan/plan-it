@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using planit.Domain.Entities;
 
-namespace planit.Application.Interfaces;
+namespace planit.Application.Abstractions;
 public interface IJWTService
 {
     Task<JwtSecurityToken> GenerateToken(User user, IList<string> roles);

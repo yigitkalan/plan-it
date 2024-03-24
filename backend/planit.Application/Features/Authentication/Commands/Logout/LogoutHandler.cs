@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using planit.Application.Bases;
-using planit.Application.Interfaces;
+using planit.Application.Abstractions;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;

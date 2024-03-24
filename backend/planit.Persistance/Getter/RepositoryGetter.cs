@@ -1,4 +1,4 @@
-using planit.Application.Interfaces;
+using planit.Application.Abstractions;
 using planit.Persistance.Contexts;
 using planit.Persistance.Repository;
 

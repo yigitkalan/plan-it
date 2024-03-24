@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using planit.Application.Bases;
-using planit.Application.Interfaces;
+using planit.Application.Abstractions;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;

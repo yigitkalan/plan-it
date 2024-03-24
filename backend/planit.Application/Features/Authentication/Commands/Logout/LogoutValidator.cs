@@ -1,9 +1,9 @@
 using FluentValidation;
 
 namespace planit.Application.Features;
-public class RevokeValidator: AbstractValidator<LogoutRequest>
+public class LogoutValidator: AbstractValidator<LogoutRequest>
 {
-    public RevokeValidator()
+    public LogoutValidator()
     {
         RuleFor(x => x.Email).EmailAddress().NotEmpty();
         

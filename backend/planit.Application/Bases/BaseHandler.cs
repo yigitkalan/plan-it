@@ -1,7 +1,7 @@
 using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using planit.Application.Interfaces;
+using planit.Application.Abstractions;
 using planit.Domain.Entities;
 
 namespace planit.Application.Bases;

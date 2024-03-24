@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using planit.Application.Interfaces;
+using planit.Application.Abstractions;
 using planit.Domain.Entities;
 
 namespace planit.Persistance.Tokens;

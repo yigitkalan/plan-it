@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
-using planit.Application.Interfaces;
+using planit.Application.Abstractions;
 using planit.Domain.Base;
 using planit.Persistance.Contexts;
 
