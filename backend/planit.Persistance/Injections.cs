@@ -9,6 +9,7 @@ using planit.Domain.Entities;
 using planit.Persistance.Contexts;
 using planit.Persistance.Getter;
 using planit.Persistance.Repository;
+using planit.Persistance.Services;
 using planit.Persistance.Tokens;
 
 namespace planit.Persistance;
@@ -50,6 +51,7 @@ public static class Injections
             };
         });
 
+
         services.AddIdentityCore<User>(options =>
         {
             options.Password.RequireDigit = false;
@@ -59,6 +61,9 @@ public static class Injections
             options.Password.RequiredLength = 6;
         })
         .AddRoles<Role>().AddEntityFrameworkStores<AppDbContext>();
+
+        services.AddScoped<RoleService>();
+        services.AddScoped<UserService>();
     }
 
 }

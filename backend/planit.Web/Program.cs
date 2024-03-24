@@ -1,6 +1,7 @@
 using planit.Persistance;
 using planit.Application;
 using Microsoft.OpenApi.Models;
+using planit.Persistance.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,15 @@ builder.Services.RegisterPersistance(builder.Configuration);
 builder.Services.RegisterApplication();
 
 var app = builder.Build();
+
+ using (var scope = app.Services.CreateScope())
+    {
+        var roleService = scope.ServiceProvider.GetRequiredService<RoleService>();
+        await roleService.AddInitialRoles();
+        var userService = scope.ServiceProvider.GetRequiredService<UserService>();
+        await userService.AddInitialAdmin();
+    }
+
 
 app.ConfigureExceptionHandlingMiddleware();
 
