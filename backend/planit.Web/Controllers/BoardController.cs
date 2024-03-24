@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using planit.Application.Features;
 
 namespace planit.Web.Controllers;
+// [Authorize]
 public class BoardController: BaseController
 {
 
     [HttpGet]
-    [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var response = await Mediator.Send(new GetAllBoardsRequest());

@@ -27,6 +27,7 @@ public class SigninHandler : BaseHandler, IRequestHandler<SigninRequest, SigninR
     public async Task<SigninResponse> Handle(SigninRequest request, CancellationToken cancellationToken)
     {
         User user = await userManager.FindByEmailAsync(request.Email);
+
         await authRules.UserShouldExist(user);
 
         bool isPasswordValid = await userManager.CheckPasswordAsync(user, request.Password);
