@@ -17,6 +17,7 @@ public class GetAllBoardsHandler :BaseHandler, IRequestHandler<GetAllBoardsReque
     public async Task<List<GetAllBoardsResponse>> Handle(GetAllBoardsRequest request, CancellationToken cancellationToken)
     {
         var boards = await getter.GenericRepository<Board>().GetAllAsync(include: q => q.Include(b => b.Users));
-        return autoMapper.Map<List<Board>, List<GetAllBoardsResponse>>(boards);;
+        var response  = boards.Select(autoMapper.Map<Board, GetAllBoardsResponse>).ToList();
+        return response;
     }
 }
