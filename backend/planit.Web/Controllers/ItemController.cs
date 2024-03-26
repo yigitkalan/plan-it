@@ -2,47 +2,44 @@ using Microsoft.AspNetCore.Mvc;
 using planit.Application.Features;
 
 namespace planit.Web.Controllers;
-public class ColumnController: BaseController
+public class ItemController: BaseController
 {
-
     [HttpGet]
-    public async Task<IActionResult> GetByBoardId([FromQuery] Guid boardId){
-        var response = await Mediator.Send(new GetByBoardIdRequest { BoardId = boardId }); 
+    public async Task<IActionResult> GetByColumnId([FromQuery] Guid columnId){
+        var response = await Mediator.Send(new GetItemsByColumnIdRequest { ColumnId = columnId }); 
         return Ok(response);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
-        var response = await Mediator.Send(new GetAllColumnsRequest());
+        var response = await Mediator.Send(new GetAllItemsRequest());
         return Ok(response);
     }
 
     [HttpGet]
     public async Task<IActionResult> GetById([FromQuery]Guid id){
-        var response = await Mediator.Send(new GetColumnByIdRequest { ColumnId = id });
+        var response = await Mediator.Send(new GetItemByIdRequest { ItemId = id });
         return Ok(response);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CreateColumnRequest request)
+    public async Task<IActionResult> Create([FromBody] CreateItemRequest request)
     {
         var response = await Mediator.Send(request);
         return Ok(response);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] UpdateColumnRequest request)
+    public async Task<IActionResult> Update([FromBody] UpdateItemRequest request)
     {
         var response = await Mediator.Send(request);
         return Ok(response);
     }
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] DeleteColumnRequest request)
+    public async Task<IActionResult> Delete([FromBody] DeleteItemRequest request)
     {
         var response = await Mediator.Send(request);
         return Ok(response);
     }
-
-
 }

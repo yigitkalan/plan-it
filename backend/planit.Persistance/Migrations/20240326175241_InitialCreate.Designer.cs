@@ -11,7 +11,7 @@ using planit.Persistance.Contexts;
 namespace planit.Persistance.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240323200613_InitialCreate")]
+    [Migration("20240326175241_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,8 +22,8 @@ namespace planit.Persistance.Migrations
 
             modelBuilder.Entity("BoardUser", b =>
                 {
-                    b.Property<int>("ParticipatedBoardsId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("ParticipatedBoardsId")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UsersId")
                         .HasColumnType("TEXT");
@@ -40,8 +40,8 @@ namespace planit.Persistance.Migrations
                     b.Property<Guid>("AssignedUsersId")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TasksId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("TasksId")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("AssignedUsersId", "TasksId");
 
@@ -151,9 +151,9 @@ namespace planit.Persistance.Migrations
 
             modelBuilder.Entity("planit.Domain.Entities.Board", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -175,12 +175,12 @@ namespace planit.Persistance.Migrations
 
             modelBuilder.Entity("planit.Domain.Entities.Column", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("BoardId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("BoardId")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -192,6 +192,9 @@ namespace planit.Persistance.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BoardId");
@@ -201,12 +204,12 @@ namespace planit.Persistance.Migrations
 
             modelBuilder.Entity("planit.Domain.Entities.Item", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
-                    b.Property<int>("ColumnId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("ColumnId")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -216,6 +219,9 @@ namespace planit.Persistance.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Order")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Title")

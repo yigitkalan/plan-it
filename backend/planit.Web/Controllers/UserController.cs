@@ -19,4 +19,17 @@ public class UserController: BaseController
         return Ok(response);
     }
 
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] UpdateUserRequest request)
+    {
+        var response = await Mediator.Send(request);
+        return Ok(response);
+    }
+    [HttpDelete]
+    public async Task<IActionResult> Delete([FromBody] DeleteUserRequest request)
+    {
+        var response = await Mediator.Send(request);
+        return Ok(response);
+    }
+
 }
