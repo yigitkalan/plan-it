@@ -3,7 +3,7 @@ using planit.Application.DTOs;
 using planit.Application.Features;
 using planit.Domain.Entities;
 
-namespace Namespace;
+namespace planit.Application.MapProfiles;
 public class ItemProfile : Profile
 {
     public ItemProfile()

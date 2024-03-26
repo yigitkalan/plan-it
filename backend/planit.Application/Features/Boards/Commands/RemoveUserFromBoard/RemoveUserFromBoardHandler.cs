@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using planit.Application.Bases;
 using planit.Application.Abstractions;
 using planit.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace planit.Application.Features;
 public class RemoveUserFromBoardHandler :BaseHandler, IRequestHandler<RemoveUserFromBoardRequest, Unit>
@@ -22,7 +23,7 @@ public class RemoveUserFromBoardHandler :BaseHandler, IRequestHandler<RemoveUser
         var user = await userRepo.GetAsync(predicate: u => u.Id == request.UserId , enableTracking: true)
          ?? throw new Exception("User not found");
 
-        var board = await boardRepo.GetAsync(predicate: b => b.Id == request.BoardId && !b.IsDeleted, enableTracking: true)
+        var board = await boardRepo.GetAsync(predicate: b => b.Id == request.BoardId && !b.IsDeleted, enableTracking: true, include: b => b.Include(b => b.Users))
          ?? throw new Exception("Board not found");
 
         board.Users.Remove(user);

@@ -1,7 +1,7 @@
 namespace planit.Application.DTOs;
 public class UserDto
 {
-    public Guid UserId { get; set; }
+    public Guid Id { get; set; }
     public string Email { get; set; }
     public string Username { get; set; }
 

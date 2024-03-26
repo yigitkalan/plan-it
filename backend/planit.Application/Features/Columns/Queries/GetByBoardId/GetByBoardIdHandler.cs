@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using planit.Application.Abstractions;
 using planit.Application.Bases;
+using planit.Application.DTOs;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;
@@ -18,11 +19,11 @@ public class GetByBoardIdHandler : BaseHandler, IRequestHandler<GetByBoardIdRequ
         var board = await getter.GenericRepository<Board>().GetAsync(b => b.Id == request.BoardId && !b.IsDeleted) ?? throw new Exception("Board not found");
 
         List<Column> columns = await getter.GenericRepository<Column>()
-        .GetAllAsync(b => b.BoardId == request.BoardId && !b.IsDeleted, include: q => q.Include(c => c.Tasks));
+        .GetAllAsync(b => b.BoardId == request.BoardId && !b.IsDeleted, include: q => q.Include(c => c.Tasks), orderBy: q => q.OrderBy(c => c.Order));
 
         return new GetByBoardIdResponse
         {
-            Columns = columns
+            Columns = columns.Select(mapper.Map<Column, ColumnDto>).ToList()
         };
     }
 }

@@ -15,7 +15,7 @@ public class GetAllItemsHandler : BaseHandler, IRequestHandler<GetAllItemsReques
 
     public async Task<GetAllItemsResponse> Handle(GetAllItemsRequest request, CancellationToken cancellationToken)
     {
-        var items = await getter.GenericRepository<Item>().GetAllAsync(predicate: i => i.IsDeleted == false);
+        var items = await getter.GenericRepository<Item>().GetAllAsync(predicate: i => i.IsDeleted == false, orderBy: q => q.OrderBy(i => i.Order));
 
         return new GetAllItemsResponse
         {

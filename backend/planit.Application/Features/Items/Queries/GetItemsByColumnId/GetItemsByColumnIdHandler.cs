@@ -15,7 +15,7 @@ public class GetItemsByColumnIdHandler : BaseHandler, IRequestHandler<GetItemsBy
 
     public async Task<GetItemsByColumnIdResponse> Handle(GetItemsByColumnIdRequest request, CancellationToken cancellationToken)
     {
-        List<Item> items = await getter.GenericRepository<Item>().GetAllAsync(i => i.ColumnId == request.ColumnId && i.IsDeleted == false);
+        List<Item> items = await getter.GenericRepository<Item>().GetAllAsync(i => i.ColumnId == request.ColumnId && i.IsDeleted == false, orderBy: q => q.OrderBy(i => i.Order));
 
         return new GetItemsByColumnIdResponse
         {

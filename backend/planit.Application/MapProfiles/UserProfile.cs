@@ -1,4 +1,5 @@
 using AutoMapper;
+using planit.Application.DTOs;
 using planit.Application.Features;
 using planit.Domain.Entities;
 
@@ -8,5 +9,6 @@ public class UserProfile: Profile
     public UserProfile()
     {
         CreateMap<SignupRequest, User>();
+        CreateMap<User, UserDto>();
     }
 }

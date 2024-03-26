@@ -5,5 +5,6 @@ public class GetBoardByIdResponse
 {
     public BoardDto board { get; set; }
     public List<ColumnDto> Columns { get; set; }
+    public List<UserDto> Collaborators { get; set; }
 
 }

@@ -6,6 +6,5 @@ public class UpdateBoardRequest: IRequest<UpdateBoardResponse>
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public int OwnerId { get; set; }
 
 }

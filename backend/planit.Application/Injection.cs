@@ -19,6 +19,7 @@ public static class Injection
             c.AddProfile<BoardProfile>();
             c.AddProfile<UserProfile>();
             c.AddProfile<ColumnProfile>();
+            c.AddProfile<ItemProfile>();
         });
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
