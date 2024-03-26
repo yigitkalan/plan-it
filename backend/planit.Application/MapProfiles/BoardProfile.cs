@@ -1,4 +1,5 @@
 using AutoMapper;
+using planit.Application.DTOs;
 using planit.Application.Features;
 using planit.Domain.Entities;
 
@@ -7,7 +8,7 @@ public class BoardProfile: Profile
 {
     public BoardProfile()
     {
-        CreateMap<Board, GetAllBoardsResponse>();
+        CreateMap<Board, BoardDto>();
         CreateMap<CreateBoardRequest, Board>();
         CreateMap<UpdateBoardRequest, Board>();
         

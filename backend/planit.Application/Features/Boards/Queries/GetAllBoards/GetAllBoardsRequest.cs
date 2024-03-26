@@ -1,7 +1,7 @@
 using MediatR;
 
 namespace planit.Application.Features;
-public class GetAllBoardsRequest: IRequest<List<GetAllBoardsResponse>>
+public class GetAllBoardsRequest: IRequest<GetAllBoardsResponse>
 {
 
 }

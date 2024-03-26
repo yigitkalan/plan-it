@@ -14,8 +14,13 @@ public class BoardController: BaseController
         return Ok(response);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetById([FromQuery]Guid id){
+        var response = await Mediator.Send(new GetBoardByIdRequest { BoardId = id });
+        return Ok(response);
+    }
+
     [HttpPost]
-    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateBoardRequest request)
     {
         var response = await Mediator.Send(request);

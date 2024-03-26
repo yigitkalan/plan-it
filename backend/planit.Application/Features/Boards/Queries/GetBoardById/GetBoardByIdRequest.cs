@@ -1,9 +1,7 @@
 using MediatR;
 
 namespace planit.Application.Features;
-public class AddUserToBoardRequest: IRequest<Unit>
+public class GetBoardByIdRequest : IRequest<GetBoardByIdResponse>
 {
     public Guid BoardId { get; set; }
-    public Guid UserId { get; set; }
-
 }
