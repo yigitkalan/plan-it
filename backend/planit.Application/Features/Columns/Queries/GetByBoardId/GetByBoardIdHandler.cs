@@ -1,22 +1,28 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using planit.Application.Abstractions;
 using planit.Application.Bases;
 using planit.Domain.Entities;
 
 namespace planit.Application.Features;
-public class GetByBoardIdHandler : BaseHandler, IRequestHandler<GetByBoardIdRequest, List<GetByBoardIdResponse>>
+public class GetByBoardIdHandler : BaseHandler, IRequestHandler<GetByBoardIdRequest, GetByBoardIdResponse>
 {
     public GetByBoardIdHandler(IMapper mapper, IRepositoryGetter getter, IHttpContextAccessor httpContextAccessor) : base(mapper, getter, httpContextAccessor)
     {
     }
 
-    public async Task<List<GetByBoardIdResponse>> Handle(GetByBoardIdRequest request, CancellationToken cancellationToken)
+    public async Task<GetByBoardIdResponse> Handle(GetByBoardIdRequest request, CancellationToken cancellationToken)
     {
-        List<Column> columns = await getter.GenericRepository<Column>().GetAllAsync(b => b.BoardId == request.BoardId && !b.IsDeleted);
+        var board = await getter.GenericRepository<Board>().GetAsync(b => b.Id == request.BoardId && !b.IsDeleted) ?? throw new Exception("Board not found");
 
-        List<GetByBoardIdResponse> response =  columns.Select(mapper.Map<Column, GetByBoardIdResponse>).ToList();
-        return response;
+        List<Column> columns = await getter.GenericRepository<Column>()
+        .GetAllAsync(b => b.BoardId == request.BoardId && !b.IsDeleted, include: q => q.Include(c => c.Tasks));
+
+        return new GetByBoardIdResponse
+        {
+            Columns = columns
+        };
     }
 }
