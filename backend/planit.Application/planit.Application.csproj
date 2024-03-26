@@ -33,6 +33,9 @@
   <ItemGroup>
     <Folder Include="Features/Authentication/Queries/" />
     <Folder Include="Features/Boards/Commands/DeleteBoard/" />
+    <Folder Include="Features/Items/" />
+    <Folder Include="Features/Items/Commands/" />
+    <Folder Include="Features/Items/Queries/" />
     <Folder Include="Features/User/Commands/" />
   </ItemGroup>
 

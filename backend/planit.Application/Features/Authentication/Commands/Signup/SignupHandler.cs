@@ -24,7 +24,7 @@ public class SignupHandler : BaseHandler, IRequestHandler<SignupRequest, Unit>
     {
         await authRules.UserShouldNotExist(await userManager.FindByEmailAsync(request.Email));
 
-        User user = autoMapper.Map<SignupRequest, User>(request);
+        User user = mapper.Map<SignupRequest, User>(request);
         user.SecurityStamp = Guid.NewGuid().ToString();
         IdentityResult identityResult = await userManager.CreateAsync(user, request.Password);
         if(identityResult.Succeeded){
