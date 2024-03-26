@@ -7,7 +7,6 @@ using planit.Application.Bases;
 using planit.Application.Behaivors;
 using planit.Application.Exceptions;
 using planit.Application.MapProfiles;
-using planit.Domain.Entities;
 
 namespace planit.Application;
 public static class Injection
@@ -19,6 +18,7 @@ public static class Injection
         {
             c.AddProfile<BoardProfile>();
             c.AddProfile<UserProfile>();
+            c.AddProfile<ColumnProfile>();
         });
 
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(FluentValidationBehavior<,>));
