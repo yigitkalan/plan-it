@@ -5,7 +5,6 @@ using planit.Domain.Entities;
 namespace planit.Application.Features;
 public class GetUserByIdHandler : IRequestHandler<GetUserByIdRequest, GetUserByIdResponse>
 {
-
     UserManager<User> userManager;
     public GetUserByIdHandler(UserManager<User> userManager)
     {
