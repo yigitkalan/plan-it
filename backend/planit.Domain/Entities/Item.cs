@@ -5,7 +5,8 @@ public class Item: Entity
 {
     public string Title { get; set; }
     public string Description { get; set; }
-    public int ColumnId { get; set; }
+    public int Order { get; set; }
+    public Guid ColumnId { get; set; }
     public Column Column { get; set; }
     
     public ICollection<User> AssignedUsers { get; set; } = new List<User>();
@@ -14,7 +15,7 @@ public class Item: Entity
     {
     }
 
-    public Item(string title, string description, int columnId)
+    public Item(string title, string description, Guid columnId)
     {
         Title = title;
         Description = description;
