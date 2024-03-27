@@ -1,7 +1,7 @@
 "use client";
 import { Column } from "@/app/models/Column";
 import { TaskAddDto } from "@/app/models/DTo/TaskAddDto";
-import { Task } from "@/app/models/Task";
+import { Item } from "@/app/models/Item";
 import { useState } from "react";
 
 export default function ColumnCard({ column, tasks }: { column: Column, tasks: TaskAddDto[] }) {
@@ -14,13 +14,13 @@ export default function ColumnCard({ column, tasks }: { column: Column, tasks: T
             return; // Prevent creating empty tasks
         }
 
-        const newTask: TaskAddDto = {
-            title: newTaskTitle,
-            description: "", // Replace with default description if needed
-            columnId: column.id,
-        };
+        // const newTask: TaskAddDto = {
+        //     title: newTaskTitle,
+        //     description: "", // Replace with default description if needed
+        //     columnId: column.id,
+        // };
 
-        setItems([...items, newTask]);
+        // setItems([...items, newTask]);
         setNewTaskTitle(""); // Clear input field after adding task
     };
 

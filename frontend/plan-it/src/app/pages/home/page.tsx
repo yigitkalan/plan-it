@@ -1,8 +1,19 @@
+"use client";
 import BoardCard from "@/app/components/BoardCard/BoardCard";
+import { Board } from "@/app/models/Board";
 import { GetAllBoards } from "@/app/services/BoardService";
+import { useEffect, useState } from "react";
 
-export default async function Home() {
-    const boards = await GetAllBoards();
+export default function Home() {
+    const [boards, setBoards] = useState<Board[]>([]);
+
+    useEffect(() => {
+        const fetchBoards = async () => {
+            var boardsData = await GetAllBoards();
+            setBoards(boardsData);
+        }
+        fetchBoards();
+    });
     return (
         <div className="p-5">
             <h1>My Boards</h1>
