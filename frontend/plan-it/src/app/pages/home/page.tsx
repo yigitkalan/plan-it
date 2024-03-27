@@ -13,7 +13,7 @@ export default function Home() {
             setBoards(boardsData);
         }
         fetchBoards();
-    });
+    }, []);
     return (
         <div className="p-5">
             <h1>My Boards</h1>
