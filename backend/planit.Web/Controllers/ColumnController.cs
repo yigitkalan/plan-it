@@ -38,7 +38,7 @@ public class ColumnController: BaseController
         return Ok(response);
     }
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] DeleteColumnRequest request)
+    public async Task<IActionResult> Delete([FromQuery] DeleteColumnRequest request)
     {
         var response = await Mediator.Send(request);
         return Ok(response);

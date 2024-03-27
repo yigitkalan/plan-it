@@ -26,7 +26,7 @@ public class UserController: BaseController
         return Ok(response);
     }
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] DeleteUserRequest request)
+    public async Task<IActionResult> Delete([FromQuery] DeleteUserRequest request)
     {
         var response = await Mediator.Send(request);
         return Ok(response);

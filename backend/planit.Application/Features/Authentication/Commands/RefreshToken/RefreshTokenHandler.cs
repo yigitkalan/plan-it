@@ -26,8 +26,8 @@ public class RefreshTokenHandler : BaseHandler, IRequestHandler<RefreshTokenRequ
         var principal = jwtService.GetPrincipalFromExpiredToken(request.AccessToken);
         var email = principal.FindFirstValue(ClaimTypes.Email);
 
-        var user = userManager.FindByEmailAsync(email).Result;
-        var roles = userManager.GetRolesAsync(user).Result;
+        var user = await userManager.FindByEmailAsync(email);
+        var roles = await userManager.GetRolesAsync(user);
 
         if(user.RefreshTokenExpiration < DateTime.Now)
         {

@@ -34,7 +34,7 @@ public class BoardController: BaseController
     }
 
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] DeleteBoardRequest request)
+    public async Task<IActionResult> Delete([FromQuery] DeleteBoardRequest request)
     {
         var response = await Mediator.Send(request);
         return Ok(response);

@@ -37,7 +37,7 @@ public class ItemController: BaseController
         return Ok(response);
     }
     [HttpDelete]
-    public async Task<IActionResult> Delete([FromBody] DeleteItemRequest request)
+    public async Task<IActionResult> Delete([FromQuery] DeleteItemRequest request)
     {
         var response = await Mediator.Send(request);
         return Ok(response);

@@ -52,7 +52,7 @@ public class SigninHandler : BaseHandler, IRequestHandler<SigninRequest, SigninR
 
         return new SigninResponse()
         {
-            Token = tokenStr,
+            AccessToken = tokenStr,
             RefreshToken = refreshToken,
             Expires = jwtSecurityToken.ValidTo
         };
