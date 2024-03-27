@@ -44,11 +44,25 @@ builder.Services.AddControllers().AddJsonOptions(x =>
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddCors(options =>
+{
+    string frontEndUrl = builder.Configuration["JWT:Audience"];
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.WithOrigins(frontEndUrl).AllowAnyMethod().AllowAnyHeader();
+            // builder.AllowAnyOrigin()
+            // .AllowAnyMethod()
+            // .AllowAnyHeader();
+        });
+});
+
 var env = builder.Environment;
 builder.Configuration
     .SetBasePath(env.ContentRootPath)
     .AddJsonFile("appsettings.json", optional: false)
     .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 builder.Services.RegisterPersistance(builder.Configuration);
@@ -65,6 +79,7 @@ var app = builder.Build();
     }
 
 
+
 app.ConfigureExceptionHandlingMiddleware();
 
 // Configure the HTTP request pipeline.
@@ -75,6 +90,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
+app.UseCors();
 app.UseAuthorization();
 app.MapControllers();
 app.UseHttpsRedirection();
