@@ -6,6 +6,7 @@ export default function BoardCard({ board }: { board: Board }) {
     const router = useRouter();
     const handleClick = () => {
         router.push(`/pages/board/${board.id}`)
+
     }
     return (
         <div className="card col-lg-2 col-sm-8 m-4">

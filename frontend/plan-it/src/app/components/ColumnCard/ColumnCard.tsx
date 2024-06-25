@@ -1,11 +1,10 @@
 "use client";
 import { Column } from "@/app/models/Column";
-import { TaskAddDto } from "@/app/models/DTo/TaskAddDto";
 import { Item } from "@/app/models/Item";
 import { useState } from "react";
 
-export default function ColumnCard({ column, tasks }: { column: Column, tasks: TaskAddDto[] }) {
-    const [items, setItems] = useState<TaskAddDto[]>(tasks)
+export default function ColumnCard({ column, tasks }: { column: Column, tasks:Item[] }) {
+    const [items, setItems] = useState<Item[]>(tasks)
     const [newTaskTitle, setNewTaskTitle] = useState("");
 
 
@@ -13,6 +12,14 @@ export default function ColumnCard({ column, tasks }: { column: Column, tasks: T
         if (!newTaskTitle.trim()) {
             return; // Prevent creating empty tasks
         }
+        const item: Item = {
+            id: "",
+            title: newTaskTitle,
+            columnId: column.id,
+            description: "",
+            order: 2
+        }
+        setItems([...items, item]);
 
         // const newTask: TaskAddDto = {
         //     title: newTaskTitle,

@@ -5,6 +5,6 @@ export interface Column{
     order: number;
     name: string;
     boardId: string;
-    tasks: Item[] | undefined;
+    tasks: Item[] 
 
 }

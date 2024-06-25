@@ -9,6 +9,7 @@ public class Column: Entity
     public Board Board { get; set; }
     public ICollection<Item> Tasks { get; set; }
 
+
     public Column()
     {
     }

@@ -1,29 +1,31 @@
 "use client";
 
+import { RegisterCredentials } from "@/app/models/RegisterCredentials";
+import { Register } from "@/app/services/AuthService";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function Register() {
+export default function RegisterPage() {
 
     const [email, setEmail] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordAgain, setPasswordAgain] = useState('');
+    const router = useRouter();
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        // Implement register logic here (e.g., API call)
-
-        // Assuming successful register, set a placeholder response
-        const response = {
-            token: 'your_access_token',
-            refreshToken: 'your_refresh_token',
+        const cred: RegisterCredentials = {
+            email: email,
+            username: username,
+            password: password,
         };
 
-        // Handle successful register (e.g., redirect to protected page)
-        // You can use `router.push` from `next/router`
-        console.log('Register successful:', response);
+        await Register(cred);
+        router.push('/pages/login');
+        
     };
     return (
         <div className="container mt-5">
@@ -54,7 +56,7 @@ export default function Register() {
                                     id="username"
                                     placeholder="Enter username"
                                     value={username}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => setUsername(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -77,7 +79,7 @@ export default function Register() {
                             <div className="form-group">
                                 <label htmlFor="repeatPassword" className="form-label mt-3 mt-3">repeatPassword</label>
                                 <input
-                                    type="text"
+                                    type="password"
                                     className="form-control"
                                     id="repeatPassword"
                                     placeholder="Enter repeatPassword"

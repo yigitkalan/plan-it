@@ -29,9 +29,6 @@ export async function LoginUser(cred: LoginCredentials) {
 export async function Register(cred: RegisterCredentials) {
     const { email, password, username } = cred;
     const response = await axios.post(`${authControllerUrl}/register`, { email, password, username });
-    if (response.status !== 200) {
-        throw new Error('Failed to register');
-    }
 }
 
 export async function Logout(email: string) {

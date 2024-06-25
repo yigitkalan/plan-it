@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using planit.Application.Features;
 using planit.Web.Controllers;
@@ -33,6 +34,7 @@ public class AuthenticationController: BaseController
         return Ok();
     }
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> RevokeAll()
     {
         await Mediator.Send(new LogoutAllRequest());
